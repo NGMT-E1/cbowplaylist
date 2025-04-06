@@ -1,101 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CBOW Playlist Menu</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #111;
       color: #fff;
       text-align: center;
-      padding: 40px;
+      padding: 40px 20px;
+      margin: 0;
     }
 
     h1 {
-      font-size: 3em;
-      margin-bottom: 30px;
-    }
-
-    .category {
-      margin: 40px 0;
-    }
-
-    .category h2 {
-      font-size: 2em;
+      font-size: 2.8em;
       margin-bottom: 20px;
       color: #0af;
     }
 
+    .category {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .category h2 {
+      font-size: 2em;
+      margin: 40px 0 20px;
+      color: #0af;
+    }
+
     .playlist-button {
+      display: inline-block;
       background-color: #0af;
-      color: white;
+      color: #fff;
       border: none;
-      padding: 15px 25px;
+      padding: 14px 24px;
       margin: 10px;
-      font-size: 1.2em;
-      border-radius: 12px;
+      font-size: 1.1em;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .playlist-button:hover {
       background-color: #08c;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .playlist-button {
+        width: 90%;
+        font-size: 1em;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>🎵 CBOW Music Menu 🎵</h1>
+  <h1>🎵 CBOW Music Menu</h1>
 
-  <!-- Example Category: Family & Fun -->
   <div class="category">
-    <h2>CBOW Playlists</h2>
+    <h2>📁 Explore Our Playlists</h2>
+
     <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=kfa-26JfdDA&list=PLtbHZoqAgzuvPHJGLke56x267qCJqs3Rw')">
-        CBOW’s Favorite Karaoke
+      🎤 Karaoke Party
     </button>
 
     <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=uu7j_xljCRY&list=PLtbHZoqAgzuv_ob0fBF1pNz51GOcEaZHg')">
-        CBOW ‘s Favorite Night Mix
-      </button>
+      🌙 Night Mix
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=chTySY8fwwA&list=PLtbHZoqAgzuusFC_sirXMGJ3aS8ow5lGU')">
-        CBOW’s Favorite Amharic Instrumental
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=chTySY8fwwA&list=PLtbHZoqAgzuusFC_sirXMGJ3aS8ow5lGU')">
+      🪘 Amharic Instrumental
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=A3yCcXgbKrE&list=PLtbHZoqAgzut53IKwWGHQ3O65zMLxb4Ng')">
-        CBOW’s Favorite Day And Morning 
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=A3yCcXgbKrE&list=PLtbHZoqAgzut53IKwWGHQ3O65zMLxb4Ng')">
+      🌅 Morning Vibes
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=M11SvDtPBhA&list=PLtbHZoqAgzusjijok4S9VFxJPG-gSRENc')">
-        CBOW’s Favorite Throwback and Disco
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=M11SvDtPBhA&list=PLtbHZoqAgzusjijok4S9VFxJPG-gSRENc')">
+      🕺 Disco & Throwbacks
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=WSSIIC58Fsc&list=PLtbHZoqAgzuvinaYkcQRxxFVOf8-CIIPu')">
-        CBOW’s Favorite Instrumental and Classical
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=WSSIIC58Fsc&list=PLtbHZoqAgzuvinaYkcQRxxFVOf8-CIIPu')">
+      🎻 Instrumental & Classical
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wjzYh36uMds&list=PLtbHZoqAgzuum49OLES6TWTGcZdUFw3Vq')">
-        CBOW’s Favorite Country
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wjzYh36uMds&list=PLtbHZoqAgzuum49OLES6TWTGcZdUFw3Vq')">
+      🤠 Country Favorites
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=8ZcQoux19Uc&list=PLtbHZoqAgzut5YiLJPl9U3LOhaAPx-kde')">
-        CBOW’s Favorite DJ Jeny and House Party
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=8ZcQoux19Uc&list=PLtbHZoqAgzut5YiLJPl9U3LOhaAPx-kde')">
+      🎧 DJ Jeny & House Party
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wXTJBr9tt8Q&list=PLtbHZoqAgzut90n9Caaa4UiX5FFK3H5rY')">
-        CBOW’s Favorite Echoes
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wXTJBr9tt8Q&list=PLtbHZoqAgzut90n9Caaa4UiX5FFK3H5rY')">
+      🔊 Echoes Vibe
+    </button>
 
-      <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=vmDDOFXSgAs&list=PLtbHZoqAgzutADjP7QTUccK6m8806elDp')">
-        CBOW’s favorite Jazz & Blues
-      </button>
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=vmDDOFXSgAs&list=PLtbHZoqAgzutADjP7QTUccK6m8806elDp')">
+      🎷 Jazz & Blues
+    </button>
 
-      
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=4NRXx6U8ABQ&list=PLtbHZoqAgzuvcBnrkZ2r7j16u3D6jm91l')">
+      🙏 Gospel & Spiritual
+    </button>
+
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=GCdwKhTtNNw&list=PLtbHZoqAgzutq9c9xq3FYQrr2-FgfrQ0y')">
+      🎶 Pop Hits
+    </button>
+
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=5tXh_MfrMe0&list=PLtbHZoqAgzuvNRev3rmdp6PbKXhkJsBJT')">
+      🚗 Road Trip Mix
+    </button>
+
+    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=e_-BYjmZeUk&list=PLtbHZoqAgzuvEuRr03d47qV3FC_qmVlrJ')">
+      ☀️ Summer & Day Vibes
+    </button>
   </div>
-
-  <!-- Add more categories below this line -->
-  <!-- You can copy the block above and just change the title + links -->
 
 </body>
 </html>
