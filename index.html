@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBOW Playlist Menu</title>
+  <title>CBOW Playlist Menu PRO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #0af;
-      --primary-dark: #08c;
-      --bg: #111;
-      --text: #fff;
+      --primary: #440c80;
+      --primary-dark: #1c5dce;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --text: #ffffff;
+      --text-secondary: #b3b3b3;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -19,90 +23,220 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      text-align: center;
-      padding: 2.5rem 1.25rem;
       line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Particle Background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      margin-bottom: 1.25rem;
-      color: var(--primary);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      letter-spacing: -1px;
     }
 
-    .category {
-      max-width: 56.25rem;
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
       margin: 0 auto;
     }
 
-    .category h2 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      margin: 2.5rem 0 1.25rem;
-      color: var(--primary);
-    }
-
+    /* Playlist Grid - Enhanced but keeping button structure */
     .playlist-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
 
     .playlist-button {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--text);
       border: none;
-      padding: 0.875rem 1.5rem;
+      padding: 1.5rem;
       font-size: 1.1rem;
-      border-radius: 0.625rem;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      justify-content: flex-start;
+      gap: 1rem;
+      text-align: left;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
-    .playlist-button:hover,
-    .playlist-button:focus {
-      background-color: var(--primary-dark);
-      transform: scale(1.03);
-      outline: none;
+    .playlist-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      opacity: 0;
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    .playlist-button:hover::before {
+      opacity: 1;
+    }
+
+    .playlist-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
     }
 
     .playlist-button:active {
-      transform: scale(0.98);
+      transform: translateY(0);
     }
 
     .emoji {
-      font-size: 1.2em;
+      font-size: 1.5em;
+      transition: var(--transition);
     }
 
-    @media (max-width: 37.5rem) {
+    .playlist-button:hover .emoji {
+      transform: scale(1.2);
+    }
+
+    /* Floating Music Notes Animation */
+    .music-note {
+      position: absolute;
+      opacity: 0;
+      font-size: 1.2rem;
+      animation: floatNote 4s linear infinite;
+    }
+
+    @keyframes floatNote {
+      0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg);
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(360deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
       .playlist-grid {
         grid-template-columns: 1fr;
       }
+      
+      .playlist-button {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    /* Loading Animation */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hover Effects */
+    .playlist-button:hover {
+      background-position: right center;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1><span class="emoji" aria-hidden="true">🎵</span> CBOW Music Menu</h1>
-  </header>
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
 
-  <main class="category">
-    <h2><span class="emoji" aria-hidden="true">📁</span> Explore Our Playlists</h2>
-    
+  <!-- Floating Music Notes -->
+  <div id="musicNotes"></div>
+
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-music"></i> CBOW Music Menu PRO</h1>
+      <p class="subtitle">Experience the ultimate playlist collection with stunning visuals</p>
+    </header>
+
+    <!-- Playlist Grid -->
     <div class="playlist-grid" id="playlist-container">
       <!-- Playlists will be inserted here by JavaScript -->
     </div>
-  </main>
+  </div>
 
   <script>
+    // EXACT SAME PLAYLIST LOGIC AS YOUR SISTER'S VERSION
     const playlists = [
       { emoji: "🎤", name: "Karaoke Party", url: "https://www.youtube.com/watch?v=kfa-26JfdDA&list=PLtbHZoqAgzuvPHJGLke56x267qCJqs3Rw" },
       { emoji: "🌙", name: "Night Mix", url: "https://www.youtube.com/watch?v=uu7j_xljCRY&list=PLtbHZoqAgzuv_ob0fBF1pNz51GOcEaZHg" },
@@ -121,6 +255,7 @@
       { emoji: "🌐", name: "NGMT Website", url: "https://www.chromebeatzonwheels.com" }
     ];
 
+    // Same container and button creation logic
     const container = document.getElementById('playlist-container');
 
     playlists.forEach(playlist => {
@@ -128,13 +263,106 @@
       button.className = 'playlist-button';
       button.innerHTML = `
         <span class="emoji" aria-hidden="true">${playlist.emoji}</span>
-        ${playlist.name}
+        <span>${playlist.name}</span>
       `;
       button.addEventListener('click', () => {
         window.open(playlist.url, '_blank', 'noopener,noreferrer');
       });
       button.setAttribute('aria-label', `Open ${playlist.name} playlist`);
       container.appendChild(button);
+    });
+
+    // NEW ENHANCEMENTS BELOW (keeping original functionality intact)
+
+    // Create floating music notes
+    function createMusicNotes() {
+      const notesContainer = document.getElementById('musicNotes');
+      const notes = ['♪', '♫', '♩', '♬', '♭', '♮'];
+      
+      setInterval(() => {
+        const note = document.createElement('div');
+        note.className = 'music-note';
+        note.textContent = notes[Math.floor(Math.random() * notes.length)];
+        note.style.left = Math.random() * 100 + 'vw';
+        note.style.animationDuration = (3 + Math.random() * 3) + 's';
+        notesContainer.appendChild(note);
+        
+        // Remove note after animation completes
+        setTimeout(() => {
+          note.remove();
+        }, 4000);
+      }, 300);
+    }
+
+    // Create particle background
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = (2 + Math.random() * 3) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.backgroundColor = `rgba(255,255,255,${Math.random() * 0.3})`;
+        particle.style.borderRadius = '50%';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        
+        // Animation
+        particle.style.animation = `float ${10 + Math.random() * 20}s linear infinite`;
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Add CSS keyframes for particle animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) translateX(${Math.random() > 0.5 ? '-' : ''}${10 + Math.random() * 20}vw);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize effects
+    createMusicNotes();
+    createParticles();
+
+    // Add hover sound effect (optional)
+    const buttons = document.querySelectorAll('.playlist-button');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        // Create a subtle sound effect on hover
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 440 + Math.random() * 880;
+        gainNode.gain.value = 0.1;
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        oscillator.start();
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+        oscillator.stop(audioCtx.currentTime + 0.3);
+      });
     });
   </script>
 </body>
