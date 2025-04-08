@@ -1,133 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CBOW Playlist Menu</title>
   <style>
+    :root {
+      --primary: #0af;
+      --primary-dark: #08c;
+      --bg: #111;
+      --text: #fff;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      color: #fff;
+      background-color: var(--bg);
+      color: var(--text);
       text-align: center;
-      padding: 40px 20px;
-      margin: 0;
+      padding: 2.5rem 1.25rem;
+      line-height: 1.6;
     }
 
     h1 {
-      font-size: 2.8em;
-      margin-bottom: 20px;
-      color: #0af;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      margin-bottom: 1.25rem;
+      color: var(--primary);
     }
 
     .category {
-      max-width: 900px;
+      max-width: 56.25rem;
       margin: 0 auto;
     }
 
     .category h2 {
-      font-size: 2em;
-      margin: 40px 0 20px;
-      color: #0af;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin: 2.5rem 0 1.25rem;
+      color: var(--primary);
+    }
+
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 1rem;
+      padding: 1rem;
     }
 
     .playlist-button {
-      display: inline-block;
-      background-color: #0af;
-      color: #fff;
+      background-color: var(--primary);
+      color: var(--text);
       border: none;
-      padding: 14px 24px;
-      margin: 10px;
-      font-size: 1.1em;
-      border-radius: 10px;
+      padding: 0.875rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 0.625rem;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
-    .playlist-button:hover {
-      background-color: #08c;
-      transform: scale(1.05);
+    .playlist-button:hover,
+    .playlist-button:focus {
+      background-color: var(--primary-dark);
+      transform: scale(1.03);
+      outline: none;
     }
 
-    @media (max-width: 600px) {
-      .playlist-button {
-        width: 90%;
-        font-size: 1em;
+    .playlist-button:active {
+      transform: scale(0.98);
+    }
+
+    .emoji {
+      font-size: 1.2em;
+    }
+
+    @media (max-width: 37.5rem) {
+      .playlist-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1><span class="emoji" aria-hidden="true">🎵</span> CBOW Music Menu</h1>
+  </header>
 
-  <h1>🎵 CBOW Music Menu</h1>
+  <main class="category">
+    <h2><span class="emoji" aria-hidden="true">📁</span> Explore Our Playlists</h2>
+    
+    <div class="playlist-grid" id="playlist-container">
+      <!-- Playlists will be inserted here by JavaScript -->
+    </div>
+  </main>
 
-  <div class="category">
-    <h2>📁 Explore Our Playlists</h2>
+  <script>
+    const playlists = [
+      { emoji: "🎤", name: "Karaoke Party", url: "https://www.youtube.com/watch?v=kfa-26JfdDA&list=PLtbHZoqAgzuvPHJGLke56x267qCJqs3Rw" },
+      { emoji: "🌙", name: "Night Mix", url: "https://www.youtube.com/watch?v=uu7j_xljCRY&list=PLtbHZoqAgzuv_ob0fBF1pNz51GOcEaZHg" },
+      { emoji: "🪘", name: "Amharic Instrumental", url: "https://www.youtube.com/watch?v=chTySY8fwwA&list=PLtbHZoqAgzuusFC_sirXMGJ3aS8ow5lGU" },
+      { emoji: "🌅", name: "Morning Vibes", url: "https://www.youtube.com/watch?v=A3yCcXgbKrE&list=PLtbHZoqAgzut53IKwWGHQ3O65zMLxb4Ng" },
+      { emoji: "🕺", name: "Disco & Throwbacks", url: "https://www.youtube.com/watch?v=M11SvDtPBhA&list=PLtbHZoqAgzusjijok4S9VFxJPG-gSRENc" },
+      { emoji: "🎻", name: "Instrumental & Classical", url: "https://www.youtube.com/watch?v=WSSIIC58Fsc&list=PLtbHZoqAgzuvinaYkcQRxxFVOf8-CIIPu" },
+      { emoji: "🤠", name: "Country Favorites", url: "https://www.youtube.com/watch?v=wjzYh36uMds&list=PLtbHZoqAgzuum49OLES6TWTGcZdUFw3Vq" },
+      { emoji: "🎧", name: "DJ Jeny & House Party", url: "https://www.youtube.com/watch?v=8ZcQoux19Uc&list=PLtbHZoqAgzut5YiLJPl9U3LOhaAPx-kde" },
+      { emoji: "🔊", name: "Echoes Vibe", url: "https://www.youtube.com/watch?v=wXTJBr9tt8Q&list=PLtbHZoqAgzut90n9Caaa4UiX5FFK3H5rY" },
+      { emoji: "🎷", name: "Jazz & Blues", url: "https://www.youtube.com/watch?v=vmDDOFXSgAs&list=PLtbHZoqAgzutADjP7QTUccK6m8806elDp" },
+      { emoji: "🙏", name: "Gospel & Spiritual", url: "https://www.youtube.com/watch?v=4NRXx6U8ABQ&list=PLtbHZoqAgzuvcBnrkZ2r7j16u3D6jm91l" },
+      { emoji: "🎶", name: "Pop Hits", url: "https://www.youtube.com/watch?v=GCdwKhTtNNw&list=PLtbHZoqAgzutq9c9xq3FYQrr2-FgfrQ0y" },
+      { emoji: "🚗", name: "Road Trip Mix", url: "https://www.youtube.com/watch?v=5tXh_MfrMe0&list=PLtbHZoqAgzuvNRev3rmdp6PbKXhkJsBJT" },
+      { emoji: "☀️", name: "Summer & Day Vibes", url: "https://www.youtube.com/watch?v=e_-BYjmZeUk&list=PLtbHZoqAgzuvEuRr03d47qV3FC_qmVlrJ" },
+      { emoji: "🌐", name: "NGMT Website", url: "https://www.chromebeatzonwheels.com" }
+    ];
 
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=kfa-26JfdDA&list=PLtbHZoqAgzuvPHJGLke56x267qCJqs3Rw')">
-      🎤 Karaoke Party
-    </button>
+    const container = document.getElementById('playlist-container');
 
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=uu7j_xljCRY&list=PLtbHZoqAgzuv_ob0fBF1pNz51GOcEaZHg')">
-      🌙 Night Mix
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=chTySY8fwwA&list=PLtbHZoqAgzuusFC_sirXMGJ3aS8ow5lGU')">
-      🪘 Amharic Instrumental
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=A3yCcXgbKrE&list=PLtbHZoqAgzut53IKwWGHQ3O65zMLxb4Ng')">
-      🌅 Morning Vibes
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=M11SvDtPBhA&list=PLtbHZoqAgzusjijok4S9VFxJPG-gSRENc')">
-      🕺 Disco & Throwbacks
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=WSSIIC58Fsc&list=PLtbHZoqAgzuvinaYkcQRxxFVOf8-CIIPu')">
-      🎻 Instrumental & Classical
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wjzYh36uMds&list=PLtbHZoqAgzuum49OLES6TWTGcZdUFw3Vq')">
-      🤠 Country Favorites
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=8ZcQoux19Uc&list=PLtbHZoqAgzut5YiLJPl9U3LOhaAPx-kde')">
-      🎧 DJ Jeny & House Party
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=wXTJBr9tt8Q&list=PLtbHZoqAgzut90n9Caaa4UiX5FFK3H5rY')">
-      🔊 Echoes Vibe
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=vmDDOFXSgAs&list=PLtbHZoqAgzutADjP7QTUccK6m8806elDp')">
-      🎷 Jazz & Blues
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=4NRXx6U8ABQ&list=PLtbHZoqAgzuvcBnrkZ2r7j16u3D6jm91l')">
-      🙏 Gospel & Spiritual
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=GCdwKhTtNNw&list=PLtbHZoqAgzutq9c9xq3FYQrr2-FgfrQ0y')">
-      🎶 Pop Hits
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=5tXh_MfrMe0&list=PLtbHZoqAgzuvNRev3rmdp6PbKXhkJsBJT')">
-      🚗 Road Trip Mix
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.youtube.com/watch?v=e_-BYjmZeUk&list=PLtbHZoqAgzuvEuRr03d47qV3FC_qmVlrJ')">
-      ☀️ Summer & Day Vibes
-    </button>
-
-    <button class="playlist-button" onclick="window.open('https://www.chromebeatzonwheels.com')">
-      NGMT Website
-    </button>
-  </div>
-
+    playlists.forEach(playlist => {
+      const button = document.createElement('button');
+      button.className = 'playlist-button';
+      button.innerHTML = `
+        <span class="emoji" aria-hidden="true">${playlist.emoji}</span>
+        ${playlist.name}
+      `;
+      button.addEventListener('click', () => {
+        window.open(playlist.url, '_blank', 'noopener,noreferrer');
+      });
+      button.setAttribute('aria-label', `Open ${playlist.name} playlist`);
+      container.appendChild(button);
+    });
+  </script>
 </body>
 </html>
